@@ -3,3 +3,6 @@ name = "ppe-detection-mlops"
 version = "0.1.0"
 description = "Production-oriented PPE detection and MLOps pipeline"
 requires-python = ">=3.11"
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
