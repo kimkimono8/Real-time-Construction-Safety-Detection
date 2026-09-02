@@ -1,4 +1,4 @@
-201~200~# 🦺 Real-Time Construction Safety & PPE Violation Detection (MLOps)
+# 🦺 Real-Time Construction Safety & PPE Violation Detection (MLOps)
 
 [![CI Pipeline](https://github.com/kimkimono8/Real-time-Construction-Safety-Detection/actions/workflows/ci.yml/badge.svg)](https://github.com/kimkimono8/Real-time-Construction-Safety-Detection/actions/workflows/ci.yml)
 ![Python](https://img.shields.io/badge/Python-3.12-3776AB?logo=python&logoColor=white)
@@ -7,7 +7,7 @@
 ![Streamlit](https://img.shields.io/badge/Streamlit-Interactive_UI-FF4B4B?logo=streamlit&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)
 
-ระบบคอมพิวเตอร์วิทัศน์ตรวจจับการสวมใส่อุปกรณ์คุ้มครองความปลอดภัยส่วนบุคคล (PPE) และแจ้งเตือนการละเมิดกฎความปลอดภัย (Violation Detection) ในไซต์งานก่อสร้างแบบ Real-Time พร้อมสถาปัตยกรรม MLOps ครบวงจรตั้งแต่ Data Pipeline, Model Training, REST API Microservice, Web UI, Containerization และ CI Pipeline
+ระบบตรวจจับการสวมใส่อุปกรณ์คุ้มครองความปลอดภัยส่วนบุคคล (PPE) และแจ้งเตือนการละเมิดกฎความปลอดภัย (Violation Detection) ในไซต์งานก่อสร้างแบบ Real-Time พร้อมสถาปัตยกรรม MLOps ครบวงจรตั้งแต่ Data Pipeline, Model Training, REST API Microservice, Web UI, Containerization และ CI Pipeline
 
 ---
 
@@ -38,59 +38,18 @@
 
 ## 🏗️ System Architecture
 
-```text
-               ┌───────────────────────┐
-                              │   Roboflow Universe   │ (Dataset Pipeline: 950+ Images)
-                                             └───────────┬───────────┘
-                                                                        │
-                                                                                                   ▼
-                                                                                                                  ┌───────────────────────┐
-                                                                                                                                 │ YOLOv8s Fine-Tuning   │ (GPU Accelerated Training)
-                                                                                                                                                └───────────┬───────────┘
-                                                                                                                                                                           │
-                                                                                                                                                                                        ┌─────────────┴─────────────┐
-                                                                                                                                                                                                     ▼                           ▼
-                                                                                                                                                                                                       ┌─────────────────────┐     ┌─────────────────────┐
-                                                                                                                                                                                                         │  FastAPI Backend    │     │    Streamlit UI     │
-                                                                                                                                                                                                           │  (REST API Service) │     │ (Interactive Demo)  │
-                                                                                                                                                                                                             └──────────┬──────────┘     └─────────────────────┘
-                                                                                                                                                                                                                          │
-                                                                                                                                                                                                                                       ▼
-                                                                                                                                                                                                                                         ┌─────────────────────┐
-                                                                                                                                                                                                                                           │  Docker Container   │ (Production Packaging)
-                                                                                                                                                                                                                                             └──────────┬──────────┘
-                                                                                                                                                                                                                                                          │
-                                                                                                                                                                                                                                                                       ▼
-                                                                                                                                                                                                                                                                         ┌─────────────────────┐
-                                                                                                                                                                                                                                                                           │ GitHub Actions CI   │ (Automated Pytest & Model Fallback)
-                                                                                                                                                                                                                                                                             └─────────────────────┘# PPE Detection MLOps
+```mermaid
+flowchart TD
+    subgraph Pipeline ["1. Data & Training Pipeline"]
+        A["Roboflow Universe (950+ Images)"] --> B["YOLOv8s Fine-Tuning (60 Epochs)"]
+    end
 
-Production-oriented computer vision system for detecting
-personal protective equipment (PPE) in industrial environments.
+    subgraph Service ["2. Application Layer"]
+        B --> C["FastAPI Microservice (REST API /predict)"]
+        B --> D["Streamlit Web UI (Interactive Demo)"]
+    end
 
-## Project Goals
-
-- Detect PPE compliance using computer vision
-- Build reproducible ML training pipeline
-- Track experiments and models
-- Serve predictions through an API
-- Containerize the application
-- Automate CI/CD
-- Deploy and monitor the system
-
-## Tech Stack
-
-- Python
-- PyTorch
-- YOLO
-- FastAPI
-- MLflow
-- Docker
-- GitHub Actions
-- Kubernetes
-- Prometheus
-- Grafana
-
-## Status
-
-🚧 Project initialization
+    subgraph Ops ["3. MLOps & Production"]
+        C --> E["Docker Containerization"]
+        E --> F["GitHub Actions (Automated CI / Pytest)"]
+    end
