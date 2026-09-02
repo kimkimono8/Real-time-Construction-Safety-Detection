@@ -26,10 +26,13 @@ Thumbs.db
 *.pt
 *.pth
 *.onnx
+*.pt
 
 # Data
 data/raw/
 data/processed/
+data/
+runs/
 
 # Logs
 *.log
