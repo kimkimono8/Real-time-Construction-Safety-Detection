@@ -7,7 +7,7 @@
 ![Streamlit](https://img.shields.io/badge/Streamlit-Interactive_UI-FF4B4B?logo=streamlit&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?logo=docker&logoColor=white)
 
-ระบบตรวจจับการสวมใส่อุปกรณ์คุ้มครองความปลอดภัยส่วนบุคคล (PPE) และแจ้งเตือนการละเมิดกฎความปลอดภัย (Violation Detection) ในไซต์งานก่อสร้างแบบ Real-Time พร้อมสถาปัตยกรรม MLOps ครบวงจรตั้งแต่ Data Pipeline, Model Training, REST API Microservice, Web UI, Containerization และ CI Pipeline
+ระบบคอมพิวเตอร์วิทัศน์ตรวจจับการสวมใส่อุปกรณ์คุ้มครองความปลอดภัยส่วนบุคคล (PPE) และแจ้งเตือนการละเมิดกฎความปลอดภัย (Violation Detection) ในไซต์งานก่อสร้างแบบ Real-Time พร้อมสถาปัตยกรรม MLOps ครบวงจรตั้งแต่ Data Pipeline, Model Training, REST API Microservice, Web UI, Containerization และ Automated CI Pipeline
 
 ---
 
@@ -53,27 +53,38 @@ flowchart TD
         C --> E["Docker Containerization"]
         E --> F["GitHub Actions (Automated CI / Pytest)"]
     end
+```
 
-🚀 Quick Start
-1. ใช้งานผ่าน Docker (Microservice)
-Bash
+---
+
+## 🚀 Quick Start
+
+### 1. ใช้งานผ่าน Docker (Microservice)
+```bash
 # Build Docker Image
 docker build -t ppe-detection-api:v1 .
 
 # รัน Container (Host Port 8001 -> Container Port 8000)
 docker run -d -p 8001:8000 --name ppe-api ppe-detection-api:v1
-Interactive API Documentation (Swagger UI): http://localhost:8001/docs
+```
+* Interactive API Documentation (Swagger UI): `http://localhost:8001/docs`
 
-2. รัน Interactive Web Dashboard (Streamlit)
-Bash
+### 2. รัน Interactive Web Dashboard (Streamlit)
+```bash
 streamlit run streamlit_app.py
-เข้าใช้งานหน้าเว็บที่: http://localhost:8501
+```
+* เข้าใช้งานหน้าเว็บที่: `http://localhost:8501`
 
-3. รันการทดสอบ Unit Tests
-Bash
+### 3. รันการทดสอบ Unit Tests
+```bash
 python -m pytest tests/
-📂 Project Structure
-Plaintext
+```
+
+---
+
+## 📂 Project Structure
+
+```text
 ├── .github/workflows/       # GitHub Actions CI/CD Pipeline
 ├── app/                     # FastAPI Backend Service
 │   ├── __init__.py
@@ -92,3 +103,4 @@ Plaintext
 ├── Dockerfile               # Production Container Definition
 ├── requirements.txt         # Project Dependencies
 └── README.md                # Project Documentation
+```
