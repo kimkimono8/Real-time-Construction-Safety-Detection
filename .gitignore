@@ -49,3 +49,5 @@ test_result.jpg
 output.jpg
 *.jpg
 *.png
+
+!docs/assets/*
