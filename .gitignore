@@ -42,3 +42,9 @@ logs/
 .pytest_cache/
 .converage
 htmlcov/
+
+# Photo
+test_result.jpg
+output.jpg
+*.jpg
+*.png
