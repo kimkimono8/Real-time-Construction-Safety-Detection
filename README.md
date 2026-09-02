@@ -53,3 +53,42 @@ flowchart TD
         C --> E["Docker Containerization"]
         E --> F["GitHub Actions (Automated CI / Pytest)"]
     end
+
+🚀 Quick Start
+1. ใช้งานผ่าน Docker (Microservice)
+Bash
+# Build Docker Image
+docker build -t ppe-detection-api:v1 .
+
+# รัน Container (Host Port 8001 -> Container Port 8000)
+docker run -d -p 8001:8000 --name ppe-api ppe-detection-api:v1
+Interactive API Documentation (Swagger UI): http://localhost:8001/docs
+
+2. รัน Interactive Web Dashboard (Streamlit)
+Bash
+streamlit run streamlit_app.py
+เข้าใช้งานหน้าเว็บที่: http://localhost:8501
+
+3. รันการทดสอบ Unit Tests
+Bash
+python -m pytest tests/
+📂 Project Structure
+Plaintext
+├── .github/workflows/       # GitHub Actions CI/CD Pipeline
+├── app/                     # FastAPI Backend Service
+│   ├── __init__.py
+│   ├── main.py              # API Endpoints (/health, /predict)
+│   └── schemas.py           # Pydantic Schemas
+├── configs/                 # Configuration Files
+├── data/                    # Dataset Pipeline artifacts (.gitkeep)
+├── docs/assets/             # Project demo media (demo.png)
+├── models/                  # Custom trained YOLO weights (.gitkeep)
+├── src/                     # Core Business & Computer Vision Logic
+│   ├── data_loader.py       # Roboflow Dataset Ingestion
+│   ├── detector.py          # PPE Compliance & Inference Pipeline
+│   └── train.py             # YOLOv8 Training Script
+├── tests/                   # Automated Unit Tests
+├── streamlit_app.py         # Streamlit Web Application
+├── Dockerfile               # Production Container Definition
+├── requirements.txt         # Project Dependencies
+└── README.md                # Project Documentation
